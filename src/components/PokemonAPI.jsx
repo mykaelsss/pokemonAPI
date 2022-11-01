@@ -1,20 +1,30 @@
 import React, { useState } from 'react'
-
+import axios from 'axios'
 const PokemonAPI = () => {
     const [ pokemon, setPokemon ] = useState([])
+    // const fetchData = () => {
+    // fetch("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0")
+    //     .then((response) => {
+    //         return response.json();
+    //     })
+    //     .then((response) => {
+    //         console.log(response.results);
+    //         setPokemon(response.results);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err)
+    //     });
+    // }
     const fetchData = () => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0")
-        .then((response) => {
-            return response.json();
-        })
-        .then((response) => {
-            console.log(response.results);
-            setPokemon(response.results);
-        })
-        .catch((err) => {
-            console.log(err)
-        });
-    }
+            axios.get("https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0")
+            .then( response => {
+                console.log(response.data);
+                setPokemon(response.data.results);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
     const wipeData = (idx) =>{
         const filteredPokemon = pokemon.filter((_poke, i) =>  {
             return idx === i
